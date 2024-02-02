@@ -51,6 +51,7 @@ function kerusakanController($scope, kerusakanServices, pesan) {
 
     $scope.edit = (param) => {
         $scope.model = angular.copy(param);
+        $scope.model.bobot = parseFloat($scope.model.bobot);
     }
 
     $scope.save = () => {
@@ -133,6 +134,7 @@ function pengetahuanController($scope, pengetahuanServices, helperServices, pesa
     $scope.edit = (param) => {
         $scope.gejala = $scope.datas.gejala.find(x => x.id == param.gejala_id);
         $scope.model = angular.copy(param);
+        $scope.model.bobot = parseFloat($scope.model.bobot);
     }
 
     $scope.save = () => {

@@ -46,10 +46,7 @@ $routes->group('pengetahuan', static function($routes){
 });
 
 
-$routes->group('keluhan', static function($routes){
-    $routes->get('/', 'Keluhan::index');
-    $routes->get('read', 'Keluhan::read');
-    $routes->post('post', 'Keluhan::post');
-    $routes->put('put', 'Keluhan::put');
-    $routes->delete('delete/(:any)', 'Keluhan::delete/$1');
+$routes->group('diagnosa', static function($routes){
+    $routes->get('/', 'Diagnosa::index');
+    $routes->post('post', 'Diagnosa::post');
 });

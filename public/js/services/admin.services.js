@@ -116,6 +116,7 @@ function kerusakanServices($http, $q, helperServices, AuthService, pesan) {
                 if (data) {
                     data.kode_kerusakan = param.kode_kerusakan;
                     data.kerusakan = param.kerusakan;
+                    data.bobot = param.bobot;
                 }
                 def.resolve(res.data);
             },
@@ -308,8 +309,7 @@ function pengetahuanServices($http, $q, helperServices, AuthService, pesan) {
                 if (data) {
                     data.kode_gejala = param.kode_gejala;
                     data.gejala = param.gejala;
-                    data.ya = param.ya;
-                    data.tidak = param.tidak;
+                    data.bobot = param.bobot;
                 }
                 def.resolve(res.data);
             },

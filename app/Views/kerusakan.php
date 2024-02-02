@@ -18,10 +18,6 @@
                             <label class="control-label">Jenis Kerusakan</label>
                             <input type="text" class="form-control" id="kerusakan" ng-model="model.kerusakan" required>
                         </div>
-                        <div ng-class="{'form-group pmd-textfield pmd-textfield-floating-label': !model.id, 'form-group pmd-textfield': model.id}">
-                            <label class="control-label">Bobot</label>
-                            <input type="number" class="form-control" id="bobot" ng-model="model.bobot" required>
-                        </div>
                     </div>
                     <div class="card-footer d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary pmd-ripple-effect btn-sm">Simpan</button>

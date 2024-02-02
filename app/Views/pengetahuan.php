@@ -16,12 +16,8 @@
                             </select>
                         </div>
                         <div ng-class="{'form-group pmd-textfield pmd-textfield-floating-label': !model.id, 'form-group pmd-textfield': model.id}">
-                            <label class="control-label">Tujuan Jika Ya</label>
-                            <input type="text" class="form-control" id="ya" ng-model="model.ya" required>
-                        </div>
-                        <div ng-class="{'form-group pmd-textfield pmd-textfield-floating-label': !model.id, 'form-group pmd-textfield': model.id}">
-                            <label class="control-label">Tujuan Jika Tidak</label>
-                            <input type="text" class="form-control" id="tidak" ng-model="model.tidak" required>
+                            <label class="control-label">bobot</label>
+                            <input type="number" step=".01" class="form-control" id="bobot" ng-model="model.bobot" required>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-end">
@@ -45,8 +41,7 @@
                                     <th>No</th>
                                     <th>Kode Gejala</th>
                                     <th>Gejala</th>
-                                    <th>Tujuan Jika Ya</th>
-                                    <th>Tujuan Jika Tidak</th>
+                                    <th>Bobot</th>
                                     <th><i class="fas fa-cogs"></i></th>
                                 </tr>
                             </thead>
@@ -55,8 +50,7 @@
                                     <td>{{$index+1}}</td>
                                     <td>{{item.kode_gejala}}</td>
                                     <td>{{item.gejala}}</td>
-                                    <td>{{item.ya}}</td>
-                                    <td>{{item.tidak}}</td>
+                                    <td>{{item.bobot}}</td>
                                     <td>
                                         <button type="submit" class="btn btn-warning pmd-ripple-effect btn-sm" ng-click="edit(item)"><i class="fas fa-edit fa-sm fa-fw"></i></button>
                                         <button type="submit" class="btn btn-danger pmd-ripple-effect btn-sm" ng-click="delete(item)"><i class="fas fa-trash-alt fa-sm fa-fw"></i></button>

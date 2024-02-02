@@ -12,5 +12,5 @@ class PengetahuanModel extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['kerusakan_id', 'gejala_id', 'ya', 'tidak'];
+    protected $allowedFields    = ['kerusakan_id', 'gejala_id', 'bobot'];
 }
