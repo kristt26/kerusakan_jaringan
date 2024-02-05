@@ -8,17 +8,29 @@ angular.module('home', [
     .controller('diagnosaController', diagnosaController)
     .factory('diagnosaService', diagnosaService);
 
-function diagnosaController($scope, diagnosaService) {
+function diagnosaController($scope, diagnosaService, pesan) {
     $scope.kriteria = true;
     $.LoadingOverlay('show');
     diagnosaService.get().then(res=>{
         $scope.datas = res
+        $scope.gejalas = angular.copy($scope.datas);
         $.LoadingOverlay('hide');
     })
     $scope.diagnosa = (param)=>{
+        $.LoadingOverlay('show');
         diagnosaService.diagnosa(param.filter(x=>x.check)).then(res=>{
-            console.log(res);
+            $scope.hasil = res.sort(function(a, b) {
+                return b.nilai - a.nilai;
+            });
+            console.log($scope.hasil);
+            $scope.kriteria = false;
+            $.LoadingOverlay('hide');
         })
+    }
+    $scope.ulang = ()=>{
+        $scope.gejalas = angular.copy($scope.datas);
+        $scope.hasil = [];
+        $scope.kriteria = true;
     }
 }
 
@@ -59,7 +71,6 @@ function diagnosaService($http, $q, helperServices, AuthService, pesan) {
             headers: AuthService.getHeader()
         }).then(
             (res) => {
-                service.data.push(res.data);
                 def.resolve(res.data);
             },
             (err) => {

@@ -15,15 +15,9 @@
                                 <div class="sb-nav-link-icon"><i class="fab fa-uncharted"></i></i></div>
                                 Gejala
                             </a>
-                            <a class="nav-link" href="<?= base_url('keluhan') ?>">
+                            <a class="nav-link" href="<?= base_url('diagnosa') ?>">
                                 <div class="sb-nav-link-icon"><i class="fa fa-exclamation-circle"></i></div>
-                                Daftar Keluhan
-                            </a>
-                        <?php endif; ?>
-                        <?php if (session()->get('akses') == 'Pelanggan') : ?>
-                            <a class="nav-link" href="<?= base_url('keluhan') ?>">
-                                <div class="sb-nav-link-icon"><i class="fa fa-exclamation-circle"></i></div>
-                                Keluhan
+                                Diagnosa
                             </a>
                         <?php endif; ?>
                     </div>

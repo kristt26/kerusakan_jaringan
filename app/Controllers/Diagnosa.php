@@ -6,6 +6,9 @@ class Diagnosa extends BaseController
 {
     public function index(): string
     {
+        if(session()->get('isRole')){
+            return view('deteksi');
+        }
         return view('diagnosa');
     }
 
@@ -21,12 +24,16 @@ class Diagnosa extends BaseController
             foreach ($dataPengetahuan as $itemPengetahuan) {
                 if ($itemKerusakan->id == $itemPengetahuan->kerusakan_id) {
                     $set = $this->checkData($data, $itemPengetahuan);
-                    if ($set==null) {
-                        if ($itemKerusakan->nilai == null) $itemKerusakan->nilai = 0;
+                    if ($set===null) {
+                        if ($itemKerusakan->nilai === null) $itemKerusakan->nilai = 0;
                         else $itemKerusakan->nilai *= 0;
                     } else {
-                        if ($itemKerusakan->nilai == null) $itemKerusakan->nilai = $itemPengetahuan->bobot;
-                        else $itemKerusakan->nilai *= $itemPengetahuan->bobot;
+                        if ($itemKerusakan->nilai === null){
+                            $itemKerusakan->nilai = $itemPengetahuan->bobot;
+                        }
+                        else{
+                            $itemKerusakan->nilai *= $itemPengetahuan->bobot;
+                        }
                     }
                     // foreach ($data as $itemData) {
                     //     if ($itemPengetahuan->gejala_id == $itemData->id) {

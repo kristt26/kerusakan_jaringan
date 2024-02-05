@@ -7,30 +7,26 @@
         </h2>
         <div class="panel panel-info">
             <div class="panel-heading">
-                <div class="checkbox" ng-repeat="item in datas">
+                <div class="checkbox" ng-repeat="item in gejalas">
                     <label style="color: black;">
                         <input type="checkbox" value="" ng-model="item.check"> {{item.kode_gejala}}{{item.gejala}}
                     </label>
                 </div>
             </div>
             <div class="panel-body text-right">
-                <button type="button" class="btn btn-primary" ng-click="diagnosa(datas)">Diagnosa</button>
+                <button type="button" class="btn btn-primary" ng-click="diagnosa(gejalas)">Diagnosa</button>
             </div>
         </div>
     </div>
     <div ng-if="!kriteria">
         <h2 class='series'><a href='dss' style="color:white;">&nbsp;</a></h2>
         <h2>Hasil Diagnosa Kerusakan</h2>
-            <div class="panel panel-info">
+            <div class="panel panel-danger">
                 <div class="panel-heading">
-                    <div class="checkbox" ng-repeat="item in datas">
-                        <label style="color: black;">
-                            <input type="checkbox" value="" ng-model="item.check"> {{item.gejala}}
-                        </label>
-                    </div>
+                    <h3>Hasi diagnosa kerusakan adalah: <strong>{{hasil[0].kerusakan}}</strong> <br>Dengan nilai perhitungan Naïve Bayes sebesar: <strong>{{hasil[0].nilai}}</strong></h3>
                 </div>
                 <div class="panel-body text-right">
-                    <button type="button" class="btn btn-primary">Diagnosa</button>
+                    <button type="button" class="btn btn-primary" ng-click="ulang()">Diagnosa lagi</button>
                 </div>
             </div>
     </div>
