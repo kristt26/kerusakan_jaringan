@@ -343,13 +343,13 @@ function pengetahuanServices($http, $q, helperServices, AuthService, pesan) {
 }
 
 function keluhanServices($http, $q, helperServices, AuthService, pesan) {
-    var controller = helperServices.url + 'keluhan/';
+    var controller = helperServices.url + 'diagnosa/';
     var service = {};
     service.data = [];
     return {
         get: get,
         post: post,
-        put: put,
+        save: save,
         deleted: deleted
     };
 
@@ -392,22 +392,16 @@ function keluhanServices($http, $q, helperServices, AuthService, pesan) {
         return def.promise;
     }
 
-    function put(param) {
+    function save(param) {
         var def = $q.defer();
         $http({
-            method: 'put',
-            url: controller + 'put',
+            method: 'post',
+            url: controller + 'save',
             data: param,
             headers: AuthService.getHeader()
         }).then(
             (res) => {
-                var data = service.data.kerusakan.pengetahuan.find(x => x.id == param.id);
-                if (data) {
-                    data.kode_gejala = param.kode_gejala;
-                    data.gejala = param.gejala;
-                    data.ya = param.ya;
-                    data.tidak = param.tidak;
-                }
+                service.data.push(res.data);
                 def.resolve(res.data);
             },
             (err) => {

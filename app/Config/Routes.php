@@ -48,5 +48,7 @@ $routes->group('pengetahuan', static function($routes){
 
 $routes->group('diagnosa', static function($routes){
     $routes->get('/', 'Diagnosa::index');
+    $routes->get('read', 'Diagnosa::read');
     $routes->post('post', 'Diagnosa::post');
+    $routes->post('save', 'Diagnosa::save');
 });

@@ -13,10 +13,10 @@ function dashboardController($scope, dashboardServices) {
     $scope.title = "Dashboard";
     var all = [];
     mapboxgl.accessToken = 'pk.eyJ1Ijoia3Jpc3R0MjYiLCJhIjoiY2txcWt6dHgyMTcxMzMwc3RydGFzYnM1cyJ9.FJYE8uVi-eVl_mH_DLLEmw';
-    
-    dashboardServices.get().then(res=>{
+
+    dashboardServices.get().then(res => {
         $scope.datas = res;
-        $scope.$applyAsync(x=>{
+        $scope.$applyAsync(x => {
             var map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/satellite-v9',
@@ -24,7 +24,7 @@ function dashboardController($scope, dashboardServices) {
                 zoom: 12
             });
             $scope.datas.forEach(param => {
-                var item = new mapboxgl.Marker({ color: param.status=='Diajukan'?'red':param.status=='Proses' ? 'Yellow' : '' })
+                var item = new mapboxgl.Marker({ color: param.status == 'Diajukan' ? 'red' : param.status == 'Proses' ? 'Yellow' : '' })
                     .setLngLat([Number(param.long), Number(param.lat)])
                     .setPopup(
                         new mapboxgl.Popup({ offset: 25 }) // add popups
@@ -166,22 +166,53 @@ function pengetahuanController($scope, pengetahuanServices, helperServices, pesa
     }
 }
 
-function keluhanController($scope, keluhanServices, pesan) {
-    $scope.$emit("SendUp", "Keluhan Konsumen");
+function keluhanController($scope, keluhanServices, pesan, gejalaServices) {
+    $scope.$emit("SendUp", "Diagnosa Kerusakan");
     $scope.datas = [];
     $scope.model = {};
+    $scope.kriteria = true;
+    keluhanServices.get().then(res => {
+        $scope.datas = res;
+    })
+    $scope.show = () => {
+        $.LoadingOverlay('show');
+        gejalaServices.get().then(res => {
+            $scope.gejalas = res;
+            $("#tambahDiagnosa").modal({
+                backdrop: "static"
+            });
+            $("#tambahDiagnosa").modal("show");
+            $.LoadingOverlay('hide');
+        })
+    }
 
+    $scope.diagnosa = (param) => {
+        $.LoadingOverlay('show');
+        keluhanServices.post(param.filter(x => x.check)).then(res => {
+            $scope.hasil = res.sort(function (a, b) {
+                return b.nilai - a.nilai;
+            });
+            console.log($scope.hasil);
+            $scope.kriteria = false;
+            $.LoadingOverlay('hide');
+        })
+    }
+    $scope.ulang = () => {
+        $scope.gejalas = angular.copy($scope.datas);
+        $scope.hasil = [];
+        $scope.kriteria = true;
+    }
+    $scope.hide = () => {
+        $("#tambahDiagnosa").modal("hide");
+    }
     $scope.save = () => {
         pesan.dialog('Yakin ingin menyimpan hasil?', "Ya", "Tidak", "info").then(x => {
             $.LoadingOverlay('show');
-            $scope.model.kerusakan = $scope.hasil.kerusakan;
-            $scope.model.kerusakan_id = $scope.hasil.id;
-            keluhanServices.post($scope.model).then(res => {
-                $scope.model = {};
-                $scope.gejala = {};
-                $scope.hasil = undefined;
+            keluhanServices.save($scope.hasil[0]).then(res => {
+                $scope.gejalas = undefined;
+                $scope.hasil = undefined
                 $.LoadingOverlay('hide');
-                $("#mulai").modal('hide');
+                $("#tambahDiagnosa").modal("hide");
             })
         })
     }
